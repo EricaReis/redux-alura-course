@@ -1,4 +1,5 @@
 import PaginaPadrao from "components/PaginaPadrao/index";
+import Home from "pages/Home";
 import {
   BrowserRouter,
   Route,
@@ -10,7 +11,7 @@ export default function Router() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<PaginaPadrao />}>
-          <Route index element={<div>home</div>} />
+          <Route index element={<Home />} />
         </Route>
       </Routes>
     </BrowserRouter>
