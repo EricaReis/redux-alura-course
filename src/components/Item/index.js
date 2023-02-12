@@ -7,7 +7,8 @@ import {
     FaCartPlus
 } from 'react-icons/fa';
 import { mudarFavorito } from 'store/reducers/itens';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { mudarCarrinho } from 'store/reducers/carrinho';
 
 
 export default function Item(props) {
@@ -17,6 +18,11 @@ export default function Item(props) {
         color: '#041833',
     }
     const dispatch = useDispatch();
+    const estaNoCarrinho = useSelector(state => state.carrinho.some(itemNoCarrinho => itemNoCarrinho.id === id));
+
+    function resolverCarrinho() {
+        dispatch(mudarCarrinho(id));
+    }
     
     function resolverFavorito() {
         dispatch(mudarFavorito(id));
@@ -38,10 +44,21 @@ export default function Item(props) {
                     </div>
                     <div className={styles['item-acoes']}>
                         {favorito 
-                            ? <AiFillHeart {...iconeProps} color='#ff0000' className={styles['item-acao']} onClick={resolverFavorito} />
-                            : <AiOutlineHeart  {...iconeProps}  className={styles['item-acao']} onClick={resolverFavorito}/>
+                            ? <AiFillHeart {...iconeProps} 
+                                color='#ff0000' 
+                                className={styles['item-acao']} 
+                                onClick={resolverFavorito} 
+                              />
+                            : <AiOutlineHeart  {...iconeProps} 
+                                className={styles['item-acao']}
+                                onClick={resolverFavorito}
+                              />
                         }   
-                        <FaCartPlus {...iconeProps} color={true ? '#1875e8' : iconeProps.color} className={styles['item-acao']} />
+                        <FaCartPlus {...iconeProps} 
+                            color={estaNoCarrinho ? '#1875e8' : iconeProps.color} 
+                            className={styles['item-acao']} 
+                            onClick={resolverCarrinho}
+                         />
                     </div>
                 </div>
             </div>
