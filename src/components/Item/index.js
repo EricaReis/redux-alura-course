@@ -9,10 +9,11 @@ import {
 import { mudarFavorito } from 'store/reducers/itens';
 import { useDispatch, useSelector } from 'react-redux';
 import { mudarCarrinho } from 'store/reducers/carrinho';
+import classNames from 'classnames';
 
 
 export default function Item(props) {
-    const { titulo, foto, preco, descricao, favorito, id } = props;
+    const { titulo, foto, preco, descricao, favorito, id, carrinho } = props;
     const iconeProps = {
         size: 24,
         color: '#041833',
@@ -29,7 +30,9 @@ export default function Item(props) {
     }
 
     return(
-        <div className={styles.item}>
+        <div className={classNames(styles.item, {
+            [styles.itemNoCarrinho]: carrinho
+        })}>
             <div className={styles['item-imagem']}>
                 <img src={foto} alt={titulo} />
             </div>
